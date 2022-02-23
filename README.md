@@ -20,7 +20,7 @@ This flexible tools solves this spectrum of problems.
 
 <!--![alt text](docs/img/NMF.illust.png "NMF illustration")-->
 <p align="center">
-    <img src="docs/img/NMF.illust.png" width="450" height="600" />
+    <img src="docs/img/NMF.illust.png" width="400" height="150" />
 </p>
 
 ## Examples
