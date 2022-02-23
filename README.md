@@ -21,6 +21,7 @@ This flexible tools solves this spectrum of problems.
 
 <p align="center">
     <img src="docs/img/NMF.illust.png" width="400" height="180" />
+    <em>Illustration of matrix factorization </em>
 </p>
 
 ## Examples
