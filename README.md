@@ -19,10 +19,10 @@ only some of the atlas columns are unknown and to be inferred;
 some of columns are approximated in beforehand and are to be adjusted. 
 This flexible tools solves this spectrum of problems. 
 
-<p align="center">
+<p align='center'>
     <img src="docs/img/NMF.illust.png" width="400" height="180" />
 </p>
-<p>
+<p align='center'>
     <em>Illustration of matrix factorization </em>
 </p>
 
