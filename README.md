@@ -19,7 +19,9 @@ some of columns are approximated in beforehand and are to be adjusted.
 This flexible tools solves this spectrum of problems. 
 
 <!--![alt text](docs/img/NMF.illust.png "NMF illustration")-->
-<img src="docs/img/NMF.illust.png" width="450" height="600" />
+<p align="center">
+    <img src="docs/img/NMF.illust.png" width="450" height="600" />
+</p>
 
 ## Examples
 The input `data` (csv) contains the observed samples as columns in a csv file. 
