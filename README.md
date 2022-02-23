@@ -1,5 +1,5 @@
 ssNMF project
-# ssNMF - semi-supervised/constrained non-negative matrix factorization tool
+# ssNMF - semi-supervised non-negative matrix factorization tool
 `ssNMF` is a semi-supervised / constrained non-negative matrix factorization (NMF) tool.
 It performs NMF, non-negative least squares, or combination of the two methods. 
 It is designed to cope with biological deconvolution problems.
@@ -17,6 +17,9 @@ In between there are other - semi-supervised - scenarios:
 only some of the atlas columns are unknown and to be inferred; 
 some of columns are approximated in beforehand and are to be adjusted. 
 This flexible tools solves this spectrum of problems. 
+
+<!--![alt text](docs/img/NMF.illust.png "NMF illustration")-->
+<img src="docs/img/NMF.illust.png" width="450" height="600" />
 
 ## Examples
 The input `data` (csv) contains the observed samples as columns in a csv file. 
