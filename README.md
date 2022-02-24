@@ -30,18 +30,21 @@ This flexible tools solves this spectrum of problems.
 We simulate 5 different reference samples (`atlas`) with 125 features, 
 25 specificaly high in each of the 5 reference samples.
 We mixed 200 samples (`data`) with different rates of the reference samples.
-The true linear combination is illustrated bellow.
 
+#### Case 1 - the atlas is known beforehand (NNLS problem).
+The true linear combination is illustrated bellow.
 <p align='center'>
-    <img src="docs/img/atlas.gt.png" width="400" height="180" />
+    <img src="docs/img/atlas.gt.png" width="400" height="400" />
 </p>
 <p align='center'>
     <em>Visualization of the simulated data</em>
 </p>
-
-#### Case 1 - the atlas is known beforehand (NNLS problem).
+Running ssNMF.py in this case to estimate the mixing coefficients of the first 20 samples:
+```bash
+python3 ssNMF.py --atlas atlas.csv -i samples.N20.csv -p example1
+```
 <p align='center'>
-    <img src="docs/img/example1.deconv.png" width="350" height="150" />
+    <img src="docs/img/example1.deconv.png" width="700" height="300" />
 </p>
 <p align='center'>
     <em>Predicted composition</em>
