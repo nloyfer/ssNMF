@@ -1,4 +1,3 @@
-ssNMF project
 # ssNMF - semi-supervised non-negative matrix factorization tool
 `ssNMF` is a semi-supervised / constrained non-negative matrix factorization (NMF) tool.
 It performs NMF, non-negative least squares, or combination of the two methods. 
@@ -42,7 +41,7 @@ The true linear combination is illustrated bellow.
 
 Running `ssNMF.py` in this case to estimate the mixing coefficients of the first 20 samples:
 ```bash
-python3 ssNMF.py --atlas atlas.csv -i samples.N20.csv -p example1
+python3 ssNMF.py --atlas atlas.csv --data samples.N20.csv -p example1
 ```
 
 <p align='center'>
@@ -55,7 +54,7 @@ python3 ssNMF.py --atlas atlas.csv -i samples.N20.csv -p example1
 #### Case 2 - the atlas is unknown (NMF problem).
 For this case we run `ssNMF.py` without input atlas (`--atlas`). The number of columns must be specified (`--nmf_cols`)
 ```bash
-python ssNMF.py --nmf_cols 5 -i samples.csv -p example2
+python ssNMF.py --nmf_cols 5 --data samples.csv -p example2
 ```
 <p align='center'>
     <img src="docs/img/example2.atlas.png" width="400" height="400" />
@@ -68,9 +67,26 @@ Note that while the restored reference samples are similar to the true
 reference samples, their order is different. 
 We used the Hungarian/ Munkers method to reorder them for visualization purposes.
 
-#### Case 3 - One missing column
+#### Case 3 - One uncertain column
+Now for the semi-supervised part. Let's say we have a reference atlas, 
+but we have low confidence of some of the reference samples. 
+We can ask `ssNMF.py` to optimize them while fixing the other columns.
 
-#### Case 4 - One uncertain column
+```bash
+python ssNMF.py --atlas atlas.csv --data samples.csv -p example3 --optimize 3-4
+# or equivalently:
+python ssNMF.py --atlas atlas.csv --data samples.csv -p example3 --fix 1-2,5
+```
+
+<p align='center'>
+    <img src="docs/img/example3.atlas.png" width="400" height="400" />
+</p>
+<p align='center'>
+    <em>Predicted atlas when optimizing columns 3-4</em>
+</p>
+
+#### Case 4 - One missing column
+
 
 The input `data` (csv) contains the observed samples as columns in a csv file. 
 The first column must be a feature/index column, and the first line must be header/titles.
@@ -87,4 +103,6 @@ git clone https://github.com/nloyfer/ssNMF.git
 cd ssNMF
 ```
 
+
+This project is developed in [Prof. Tommy Kaplan's lab](https://www.cs.huji.ac.il/~tommy/) at the Hebrew University, Jerusalem, Israel.
 
