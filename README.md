@@ -48,7 +48,7 @@ python3 plot_deconv.py example1.coef.csv --outpath example1.coef.pdf
 ```
 
 <p align='center'>
-    <img src="docs/img/example1.deconv.png" width="700" height="400" />
+    <img src="docs/img/example1.deconv.png" width="700" height="330" />
 </p>
 <p align='center'>
     <em>Predicted composition</em>
