@@ -39,9 +39,13 @@ The true linear combination is illustrated bellow.
 <p align='center'>
     <em>Visualization of the simulated data</em>
 </p>
+
 Running ssNMF.py in this case to estimate the mixing coefficients of the first 20 samples:
 ```bash
 python3 ssNMF.py --atlas atlas.csv -i samples.N20.csv -p example1
+```
+```bash
+wgbstools vis Sigmoid_Colon_STL003.pat.gz -r chr3:119528843-119529245
 ```
 <p align='center'>
     <img src="docs/img/example1.deconv.png" width="700" height="300" />
