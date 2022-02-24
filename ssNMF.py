@@ -51,15 +51,13 @@ def load_atlas(args, features):
 #                                                           #
 #############################################################
 
-def print_col_status(ocols, d, n):
-    def prep_v(tg):
-        lst = [(x, ocols[x]) for x in range(n) if d[x] == tg]
+def print_col_status(ocols, d):
+    for tg in ('fixed', 'optimized', 'excluded', 'added'):
+        lst = [(i, x) for i, x in enumerate(ocols) if i in d.keys() and d[i] == tg]
         eprint(f'{len(lst)} Columns are {tg}:')
         for i, f in lst:
             eprint(f'\t{i + 1}\t{f}')
-    prep_v('fixed')
-    prep_v('optimized')
-    prep_v('excluded')
+        print()
 
 
 def parse_cols(orig_atlas, args):
@@ -78,44 +76,32 @@ def parse_cols(orig_atlas, args):
 
     n = orig_atlas.shape[1] - args.add
 
-    # parse cut-like strings:
-    op_i = parse_cut_str(args.optimize, n)
-    fix_i = parse_cut_str(args.fix, n)
-    ex_i = parse_cut_str(args.exclude, n)
-
     # map index to status (excluded / fixed / optimized)
-    d = {i: None for i in range(n)}
-    for i in ex_i:
-        d[i] = 'excluded'
-    for i in fix_i:
-        if d[i] != 'excluded':
-            d[i] = 'fixed'
-    for i in op_i:
-        if d[i] != 'excluded':
-            d[i] = 'optimized'
     def_mode = 'optimized' if args.fix else 'fixed'
-    for i in range(n):
-        if d[i] is None:
-            d[i] = def_mode
+    d = {i: def_mode for i in range(n)}
+    for k, tg in zip((args.fix, args.optimize, args.exclude),
+                     ('fixed', 'optimized', 'excluded')):
+        # parse cut-like string
+        for i in parse_cut_str(k, n):
+            d[i] = tg
+    # add additional (Unknown) columns:
+    for i in range(n, orig_atlas.shape[1]):
+        d[i] = 'added'
 
     # print status
     if args.verbose:
-        print_col_status(orig_atlas.columns, d, n)
+        print_col_status(orig_atlas.columns, d)
 
     # drop excluded columns from atlas
     atlas = orig_atlas.copy()
     todrop = [atlas.columns[i] for i in range(n) if d[i] == 'excluded']
     atlas.drop(todrop, axis=1, inplace=True)
 
-    # make boolean status vector (i==1 iff column i is fixed)
+    # build boolean status vector (i==1 iff column i is fixed)
     # map name to index
     rdn = {k: v for v, k in enumerate(orig_atlas.columns)}
-    bv = np.zeros((atlas.shape[1], ))
-    for i in range(atlas.shape[1]):
-        if 'Unknown.' in atlas.columns[i]:
-            continue
-        if d[rdn[atlas.columns[i]]] == 'fixed':
-            bv[i] = 1
+    bv = np.where(pd.Series(atlas.columns).replace(rdn).\
+            replace(d) == 'fixed', 1, 0)
 
     return atlas, np.array(bv)
 
@@ -128,62 +114,36 @@ def parse_cols(orig_atlas, args):
 
 def main():
     args = parse_args()
-
     validate_args(args)
 
     # load samples table:
     sf = load_table(args.data)
-    sample_names = list(sf.columns)
     features = sf.index.tolist()
 
     # load atlas:
     orig_atlas = load_atlas(args, features)
-    orig_atlas, fixed = parse_cols(orig_atlas, args)
-    ref_samples = list(orig_atlas.columns)
+    atlas0, fixed_bv = parse_cols(orig_atlas, args)
 
     # make sure atlas and data have the exact same features (rows)
-    assert (sf.index != orig_atlas.index).sum() == 0
+    assert (sf.index != atlas0.index).sum() == 0
 
     # deconvolve samples:
-    A, Y, history = run_deconvolution(A=orig_atlas.copy().values,
+    A, Y, history = run_deconvolution(A=atlas0.copy().values,
                                       X=sf.copy().values,
-                                      fixed=fixed,
+                                      fixed=fixed_bv,
                                       beta=args.beta,
                                       eta=args.eta,
                                       n_iter=args.n_iter)
 
-    coef = pd.DataFrame(columns=sample_names, index=ref_samples, data=Y)
-    atlas = pd.DataFrame(columns=ref_samples, index=features, data=A)
-    print('A', atlas.shape)
-    print('Y', coef.shape)
+    coef = pd.DataFrame(columns=sf.columns, index=atlas0.columns, data=Y)
+    atlas = pd.DataFrame(columns=atlas0.columns, index=sf.index, data=A)
 
     # calc RMSE
-    print('RMSE:', history[-1])
-
+    print(f'RMSE: {history[-1]}\n')
 
     # Dump results
-    orig_atlas_path = args.prefix + '.atlas.orig.csv'
-    atlas_path = args.prefix + '.atlas.csv'
-    coef_path = args.prefix + '.coef.csv'
-    dump_df(atlas_path, atlas)
-    dump_df(orig_atlas_path, orig_atlas)
-    dump_df(coef_path, coef)
-
-    # plot results
-    if args.plot:
-        if args.verbose:
-            eprint('Plotting results')
-        plot_results(args, orig_atlas_path, atlas_path, coef_path)
-
-
-def plot_results(args, orig_atlas_path, atlas_path, coef_path):
-
-    from plot_atlas import plot_atlas, plot_weights
-    from plot_deconv import PlotDeconv
-    plot_atlas(atlas_path)
-    plot_atlas(orig_atlas_path, nan_orig=True)
-    # plot_weights(coef_path)
-    PlotDeconv(csv=coef_path)
+    dump_df(args.prefix + '.atlas.csv', atlas)
+    dump_df(args.prefix + '.coef.csv', coef)
 
 
 if __name__ == '__main__':
