@@ -1,6 +1,6 @@
 # ssNMF - semi-supervised non-negative matrix factorization tool
-`ssNMF` is a semi-supervised / constrained non-negative matrix factorization (NMF) tool.
-It performs NMF, non-negative least squares, or combination of the two methods. 
+`ssNMF` is a semi-supervised / constrained non-negative matrix factorization tool.
+It performs NMF, NNLS (non-negative least squares), or combination of the two methods. 
 It is designed to cope with biological deconvolution problems.
 
 ## Introduction 
