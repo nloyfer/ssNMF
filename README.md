@@ -17,7 +17,7 @@ This case is solved with the classic NNLS (non-negative least squares) linear re
 In between there are other - semi-supervised - scenarios: 
 only some of the atlas columns are unknown and to be inferred; 
 some of columns are approximated in beforehand and are to be adjusted. 
-This flexible tools solves this spectrum of problems. 
+This flexible tool solves this spectrum of problems. 
 
 <p align='center'>
     <img src="docs/img/NMF.illust.png" width="400" height="180" />
@@ -40,7 +40,7 @@ The true linear combination is illustrated bellow.
     <em>Visualization of the simulated data</em>
 </p>
 
-Running ssNMF.py in this case to estimate the mixing coefficients of the first 20 samples:
+Running `ssNMF.py` in this case to estimate the mixing coefficients of the first 20 samples:
 ```bash
 python3 ssNMF.py --atlas atlas.csv -i samples.N20.csv -p example1
 ```
@@ -53,6 +53,20 @@ python3 ssNMF.py --atlas atlas.csv -i samples.N20.csv -p example1
 </p>
 
 #### Case 2 - the atlas is unknown (NMF problem).
+For this case we run `ssNMF.py` without input atlas (`--atlas`). The number of columns must be specified (`--nmf_cols`)
+```bash
+python ssNMF.py --nmf_cols 5 -i samples.csv -p example2
+```
+<p align='center'>
+    <img src="docs/img/example2.atlas.png" width="400" height="400" />
+</p>
+<p align='center'>
+    <em>Predicted atlas by NMF</em>
+</p>
+
+Note that while the restored reference samples are similar to the true 
+reference samples, their order is different. 
+We used the Hungarian/ Munkers method to reorder them for visualization purposes.
 
 #### Case 3 - One missing column
 
