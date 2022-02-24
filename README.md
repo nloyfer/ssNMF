@@ -108,24 +108,29 @@ python3 ssNMF.py --atlas atlas.4cols.csv --data samples.csv -p example4 --add 1
     <img src="docs/img/example4.atlas.png" width="400" height="400" />
 </p>
 <p align='center'>
-    <em>Predicted atlas when inferring column 5>
+    <em>Predicted atlas when inferring column </em>
 </p>
 
 
 
 ## Quick start
-### Installation
 
 ```bash
 # Clone
-git clone https://github.com/nloyfer/ssNMF.git
-cd ssNMF
-# run 
-python3 ssNMF.py --atlas atlas.csv --data samples.N20.csv -p example1
-# outputs weights as a csv file named example1.coef.csv. Plot it:
+$ git clone https://github.com/nloyfer/ssNMF.git
+$ cd ssNMF
+# run with all columns fixed
+$ python3 ssNMF.py --atlas atlas.csv --data samples.N20.csv -p example1 [-v]
+RMSE: 0.5864542840929288
+
+dumped example1.atlas.csv
+dumped example1.coef.csv
+
+# Plot deconvolution results:
 python3 plot_deconv.py example1.coef.csv --outpath example1.coef.pdf
+
 # plot atlas:
-python3 plot_atlas.py example2.atlas.csv -o example2.atlas.pdf
+python3 plot_atlas.py example1.atlas.csv -o example1.atlas.pdf
 ```
 
 ### Notes about the input / usage
