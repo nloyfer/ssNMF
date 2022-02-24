@@ -112,12 +112,6 @@ python3 ssNMF.py --atlas atlas.4cols.csv --data samples.csv -p example4 --add 1
 </p>
 
 
-### Notes about the input / usage
-The input `data` (csv) contains the observed samples as columns in a csv file. 
-The first column must be a feature/index column, and the first line must be header/titles.
-The input `atlas`, if specified, must follow the same format, 
-and share the same features (first column) as the `data` csv file.
-
 
 ## Quick start
 ### Installation
@@ -126,7 +120,19 @@ and share the same features (first column) as the `data` csv file.
 # Clone
 git clone https://github.com/nloyfer/ssNMF.git
 cd ssNMF
+# run 
+python3 ssNMF.py --atlas atlas.csv --data samples.N20.csv -p example1
+# outputs weights as a csv file named example1.coef.csv. Plot it:
+python3 plot_deconv.py example1.coef.csv --outpath example1.coef.pdf
+# plot atlas:
+python3 plot_atlas.py example2.atlas.csv -o example2.atlas.pdf
 ```
+
+### Notes about the input / usage
+The input `data` (csv) contains the observed samples as columns in a csv file. 
+The first column must be a feature/index column, and the first line must be header/titles.
+The input `atlas`, if specified, must follow the same format, 
+and share the same features (first column) as the `data` csv file.
 
 
 This project is developed in [Prof. Tommy Kaplan's lab](https://www.cs.huji.ac.il/~tommy/) at the Hebrew University, Jerusalem, Israel.
