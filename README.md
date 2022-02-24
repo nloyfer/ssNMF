@@ -30,7 +30,7 @@ We simulate 5 different reference samples (`atlas`) with 125 features,
 25 specificaly high in each of the 5 reference samples.
 We mixed 200 samples (`data`) with different rates of the reference samples.
 
-#### Case 1 - the atlas is known beforehand (NNLS problem).
+### Case 1 - the atlas is known beforehand (NNLS problem).
 The true linear combination is illustrated bellow.
 <p align='center'>
     <img src="docs/img/atlas.gt.png" width="400" height="400" />
