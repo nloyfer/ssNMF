@@ -42,6 +42,9 @@ The true linear combination is illustrated bellow.
 Running `ssNMF.py` in this case to estimate the mixing coefficients of the first 20 samples:
 ```bash
 python3 ssNMF.py --atlas atlas.csv --data samples.N20.csv -p example1
+# outputs weights as a csv file named example1.coef.csv
+# to plot it:
+python3 plot_deconv.py example1.coef.csv --outpath example1.coef.pdf
 ```
 
 <p align='center'>
@@ -54,7 +57,10 @@ python3 ssNMF.py --atlas atlas.csv --data samples.N20.csv -p example1
 #### Case 2 - the atlas is unknown (NMF problem).
 For this case we run `ssNMF.py` without input atlas (`--atlas`). The number of columns must be specified (`--nmf_cols`)
 ```bash
-python ssNMF.py --nmf_cols 5 --data samples.csv -p example2
+python3 ssNMF.py --nmf_cols 5 --data samples.csv -p example2
+# outputs both weights and predicted atlas
+# plot predicted atlas:
+python3 plot_atlas.py example2.atlas.csv -o example2.atlas.png
 ```
 <p align='center'>
     <img src="docs/img/example2.atlas.png" width="400" height="400" />
@@ -73,9 +79,9 @@ but we have low confidence of some of the reference samples.
 We can ask `ssNMF.py` to optimize them while fixing the other columns.
 
 ```bash
-python ssNMF.py --atlas atlas.csv --data samples.csv -p example3 --optimize 3-4
+python3 ssNMF.py --atlas atlas.csv --data samples.csv -p example3 --optimize 3-4
 # or equivalently:
-python ssNMF.py --atlas atlas.csv --data samples.csv -p example3 --fix 1-2,5
+python3 ssNMF.py --atlas atlas.csv --data samples.csv -p example3 --fix 1-2,5
 ```
 
 <p align='center'>
@@ -95,7 +101,7 @@ Megakaryocytes, and ask `ssNMF.py` to infer it.
 
 ```bash
 # add another "unknown" column to the reference atlas (--add 1)
-python ssNMF.py --atlas atlas.4cols.csv --data samples.csv -p example4 --add 1
+python3 ssNMF.py --atlas atlas.4cols.csv --data samples.csv -p example4 --add 1
 ```
 
 <p align='center'>
@@ -106,11 +112,12 @@ python ssNMF.py --atlas atlas.4cols.csv --data samples.csv -p example4 --add 1
 </p>
 
 
+### Notes about the input / usage
 The input `data` (csv) contains the observed samples as columns in a csv file. 
 The first column must be a feature/index column, and the first line must be header/titles.
+The input `atlas`, if specified, must follow the same format, 
+and share the same features (first column) as the `data` csv file.
 
-For the first case, we assume we know the `atlas` table. It should be a csv file with the same format as the `data`.
-a reference table/atlas (csv), with columns representing the reference samples
 
 ## Quick start
 ### Installation
