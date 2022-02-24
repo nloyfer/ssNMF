@@ -67,7 +67,7 @@ Note that while the restored reference samples are similar to the true
 reference samples, their order is different. 
 We used the Hungarian/ Munkers method to reorder them for visualization purposes.
 
-#### Case 3 - One uncertain column
+#### Case 3 - Partial uncertanity
 Now for the semi-supervised part. Let's say we have a reference atlas, 
 but we have low confidence of some of the reference samples. 
 We can ask `ssNMF.py` to optimize them while fixing the other columns.
@@ -85,7 +85,25 @@ python ssNMF.py --atlas atlas.csv --data samples.csv -p example3 --fix 1-2,5
     <em>Predicted atlas when optimizing columns 3-4</em>
 </p>
 
-#### Case 4 - One missing column
+#### Case 4 - Partially missing reference data
+A key drawback of the NNLS method for deconvolution is the assumption 
+that the reference data is complete.
+With `ssNMF.py` we can assume partial data, 
+and ask the algorithm to learn the missing reference samples.
+In our example, let's say we don't have the fifth reference sample, 
+Megakaryocytes, and ask `ssNMF.py` to infer it.
+
+```bash
+# add another "unknown" column to the reference atlas (--add 1)
+python ssNMF.py --atlas atlas.4cols.csv --data samples.csv -p example4 --add 1
+```
+
+<p align='center'>
+    <img src="docs/img/example4.atlas.png" width="400" height="400" />
+</p>
+<p align='center'>
+    <em>Predicted atlas when inferring column 5>
+</p>
 
 
 The input `data` (csv) contains the observed samples as columns in a csv file. 
