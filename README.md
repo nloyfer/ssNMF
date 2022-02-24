@@ -30,13 +30,28 @@ This flexible tools solves this spectrum of problems.
 We simulate 5 different reference samples (`atlas`) with 125 features, 
 25 specificaly high in each of the 5 reference samples.
 We mixed 200 samples (`data`) with different rates of the reference samples.
+The true linear combination is illustrated bellow.
+
+<p align='center'>
+    <img src="docs/img/atlas.gt.png" width="400" height="180" />
+</p>
+<p align='center'>
+    <em>Visualization of the simulated data</em>
+</p>
+
 #### Case 1 - the atlas is known beforehand (NNLS problem).
+<p align='center'>
+    <img src="docs/img/example1.deconv.png" width="350" height="150" />
+</p>
+<p align='center'>
+    <em>Predicted composition</em>
+</p>
 
 #### Case 2 - the atlas is unknown (NMF problem).
 
 #### Case 3 - One missing column
 
-#### Case 3 - One uncertain column
+#### Case 4 - One uncertain column
 
 The input `data` (csv) contains the observed samples as columns in a csv file. 
 The first column must be a feature/index column, and the first line must be header/titles.
