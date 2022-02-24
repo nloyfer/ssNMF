@@ -11,19 +11,19 @@ The main purpose is to find the `weights` / coefficients of these combinations.
 The atlas may be unknown, and inferred together with the weights. 
 This setting is a classic NMF problem. 
 
-On the other hand, the atlas may be completely known in advanced, and used directly to find the coefficients. 
-This case is solved with the classic NNLS (non-negative least squares) linear regression. 
-In between there are other - semi-supervised - scenarios: 
-only some of the atlas columns are unknown and to be inferred; 
-some of columns are approximated in beforehand and are to be adjusted. 
-This flexible tool solves this spectrum of problems. 
-
 <p align='center'>
     <img src="docs/img/NMF.illust.png" width="400" height="180" />
 </p>
 <p align='center'>
     <em>Illustration of matrix factorization </em>
 </p>
+
+On the other hand, the atlas may be completely known in advanced, and used directly to find the coefficients. 
+This case is solved with the classic NNLS (non-negative least squares) linear regression. 
+In between there are other - semi-supervised - scenarios: 
+only some of the atlas columns are unknown and to be inferred; 
+some of the columns are approximated in beforehand and are to be adjusted. 
+This flexible tool solves the spectrum of problems. 
 
 ## Examples
 We simulate 5 different reference samples (`atlas`) with 125 features, 
