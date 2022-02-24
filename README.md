@@ -48,13 +48,13 @@ python3 plot_deconv.py example1.coef.csv --outpath example1.coef.pdf
 ```
 
 <p align='center'>
-    <img src="docs/img/example1.deconv.png" width="700" height="300" />
+    <img src="docs/img/example1.deconv.png" width="700" height="400" />
 </p>
 <p align='center'>
     <em>Predicted composition</em>
 </p>
 
-#### Case 2 - the atlas is unknown (NMF problem).
+### Case 2 - the atlas is unknown (NMF problem).
 For this case we run `ssNMF.py` without input atlas (`--atlas`). The number of columns must be specified (`--nmf_cols`)
 ```bash
 python3 ssNMF.py --nmf_cols 5 --data samples.csv -p example2
@@ -73,7 +73,7 @@ Note that while the restored reference samples are similar to the true
 reference samples, their order is different. 
 We used the Hungarian/ Munkers method to reorder them for visualization purposes.
 
-#### Case 3 - Partial uncertanity
+### Case 3 - Partial uncertanity
 Now for the semi-supervised part. Let's say we have a reference atlas, 
 but we have low confidence of some of the reference samples. 
 We can ask `ssNMF.py` to optimize them while fixing the other columns.
@@ -91,7 +91,7 @@ python3 ssNMF.py --atlas atlas.csv --data samples.csv -p example3 --fix 1-2,5
     <em>Predicted atlas when optimizing columns 3-4</em>
 </p>
 
-#### Case 4 - Partially missing reference data
+### Case 4 - Partially missing reference data
 A key drawback of the NNLS method for deconvolution is the assumption 
 that the reference data is complete.
 With `ssNMF.py` we can assume partial data, 
@@ -121,7 +121,7 @@ $ git clone https://github.com/nloyfer/ssNMF.git
 $ cd ssNMF
 # run with all columns fixed
 $ python3 ssNMF.py --atlas examples/atlas.csv --data examples/ex1/samples.N20.csv -p example1 [-v]
-RMSE: 0.5864542840929288
+RMSE: 0.5154710989476873
 
 dumped example1.atlas.csv
 dumped example1.coef.csv
