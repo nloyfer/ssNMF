@@ -120,17 +120,17 @@ python3 ssNMF.py --atlas atlas.4cols.csv --data samples.csv -p example4 --add 1
 $ git clone https://github.com/nloyfer/ssNMF.git
 $ cd ssNMF
 # run with all columns fixed
-$ python3 ssNMF.py --atlas atlas.csv --data samples.N20.csv -p example1 [-v]
+$ python3 ssNMF.py --atlas examples/atlas.csv --data examples/ex1/samples.N20.csv -p example1 [-v]
 RMSE: 0.5864542840929288
 
 dumped example1.atlas.csv
 dumped example1.coef.csv
 
 # Plot deconvolution results:
-python3 plot_deconv.py example1.coef.csv --outpath example1.coef.pdf
+$ python3 plot_deconv.py example1.coef.csv --outpath example1.coef.pdf
 
 # plot atlas:
-python3 plot_atlas.py example1.atlas.csv -o example1.atlas.pdf
+$ python3 plot_atlas.py example1.atlas.csv -o example1.atlas.pdf
 ```
 
 ### Notes about the input / usage
