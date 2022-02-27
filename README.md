@@ -5,7 +5,8 @@ It is designed to cope with biological deconvolution problems.
 
 ## Introduction 
 ### Problem settings
-There is a set of observed samples, `data`, represented by vectors of numbers in range `[0,1]`. 
+There is a set of observed samples, `data`, represented by a matrix, 
+where the each column represents a single sample.
 The samples are assumed to be approximately linear combinations of a reference set of samples, `atlas`. 
 The main purpose is to find the `weights` / coefficients of these combinations. 
 The atlas may be unknown, and inferred together with the weights. 
