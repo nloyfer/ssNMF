@@ -76,6 +76,9 @@ def parse_args():
                         help='L1 regularization on newly learned components. '
                              'Must be non negative. '
                              'Default value is 0.0')
+    parser.add_argument('--norm_data', action='store_true',
+                        help='normalize the input data such that each '
+                             'sample will sum up to one.')
     parser.add_argument('--no_norm_weights', action='store_true',
                         help='Do not normalize the output weights. '
                              'If set, their sum may not sum up to one.')

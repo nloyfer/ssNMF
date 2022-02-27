@@ -74,7 +74,7 @@ def dump_df(fpath, df, verbose=True):
 #################################
 
 
-def load_table(table_path):
+def load_table(table_path, norm_cols=False):
     validate_file(table_path)
     df = pd.read_csv(table_path, sep=SEP, index_col=None)
     if df.shape[1] < 3:
@@ -82,6 +82,8 @@ def load_table(table_path):
         exit(1)
     df.columns = ['feature'] + list(df.columns)[1:]
     df.set_index('feature', inplace=True)
+    if norm_cols:
+        df = df.apply(lambda x: x / x.sum())
     return df
 
 

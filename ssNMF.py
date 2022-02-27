@@ -117,7 +117,7 @@ def main():
     validate_args(args)
 
     # load samples table:
-    sf = load_table(args.data)
+    sf = load_table(args.data, args.norm_data)
     features = sf.index.tolist()
 
     # load atlas:
