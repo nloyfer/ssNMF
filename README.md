@@ -121,7 +121,7 @@ $ git clone https://github.com/nloyfer/ssNMF.git
 $ cd ssNMF
 # run with all columns fixed
 $ python3 ssNMF.py --atlas examples/atlas.csv --data examples/ex1/samples.N20.csv -p example1 [-v]
-RMSE: 0.5154710989476873
+RMSE: 3.179680259169909e-06
 
 dumped example1.atlas.csv
 dumped example1.coef.csv

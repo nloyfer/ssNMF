@@ -68,12 +68,17 @@ def parse_args():
     # Other
     parser.add_argument('--n_iter', type=int, default=100,
                         help='Number of iterations for the (ss)NMF algorithm.')
-    parser.add_argument('--eta', type=float,
-                        help='regularization parameter. Must be non negative.'
-                             'If not specifed, it is set to (data.max()**2)')
-    parser.add_argument('--beta', type=float, default=1.0,
-                        help='regularization parameter. Must be non negative'
-                             'Default value is 1.0')
+    parser.add_argument('--beta', type=float, default=0.0,
+                        help='L1 regularization on proportions. '
+                             'Must be non negative. '
+                             'Default value is 0.0')
+    parser.add_argument('--eta', type=float, default=0.0,
+                        help='L1 regularization on newly learned components. '
+                             'Must be non negative. '
+                             'Default value is 0.0')
+    parser.add_argument('--no_norm_weights', action='store_true',
+                        help='Do not normalize the output weights. '
+                             'If set, their sum may not sum up to one.')
     parser.add_argument('--prefix', '-p', default='./out',
                         help='prefix for output files (csv and png)')
     parser.add_argument('--verbose', '-v', action='store_true')

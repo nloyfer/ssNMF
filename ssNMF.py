@@ -128,12 +128,13 @@ def main():
     assert (sf.index != atlas0.index).sum() == 0
 
     # deconvolve samples:
-    A, Y, history = run_deconvolution(A=atlas0.copy().values,
-                                      X=sf.copy().values,
-                                      fixed=fixed_bv,
-                                      beta=args.beta,
-                                      eta=args.eta,
-                                      n_iter=args.n_iter)
+    A, Y, history = run_deconvolution(A         = atlas0.copy().values,
+                                      X         = sf.copy().values,
+                                      fixed     = fixed_bv,
+                                      beta      = args.beta,
+                                      eta       = args.eta,
+                                      n_iter    = args.n_iter,
+                                      normalize = not args.no_norm_weights)
 
     coef = pd.DataFrame(columns=sf.columns, index=atlas0.columns, data=Y)
     atlas = pd.DataFrame(columns=atlas0.columns, index=sf.index, data=A)

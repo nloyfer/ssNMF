@@ -9,10 +9,10 @@ from scipy import optimize
 
 
 def calc_RMSE(A, Y, X):
-    return np.sqrt(np.power(np.matmul(A, Y) - X, 2).sum())
+    return np.sqrt(np.power(np.matmul(A, Y) - X, 2).mean())
 
 
-def run_nnls(A, X, beta):
+def run_nnls(A, X, beta, normalize=True):
     nr_samples = X.shape[1]
     nr_ref_samp = A.shape[1]
 
@@ -29,12 +29,14 @@ def run_nnls(A, X, beta):
     for i in range(nr_samples):
         mixture, residual = optimize.nnls(Ar, Xr[:, i])
         Y[:, i] = mixture
-    Y = Y / Y.sum(axis=0)
+    # normalize coefficients to sum to 1
+    if normalize:
+        Y = Y / Y.sum(axis=0)
 
     return Y
 
 
-def run_deconvolution(A, X, fixed, beta, eta, n_iter):
+def run_deconvolution(A, X, fixed, beta, eta, n_iter, normalize):
     """
     Run NMF
     :param A: reference atlas, size (nr_feat, nr_ref_samp)
@@ -43,18 +45,16 @@ def run_deconvolution(A, X, fixed, beta, eta, n_iter):
     :param beta: regularization parameter, float
     :param eta: regularization parameter, float
     :param n_iter: number of iterations, int
+    :param normalize: Should the NNLS step normalize Y to sum up to one.
     :return: the mixture coefficients
     """
-    if eta is None:
-        eta = X.max() ** 2
-
     nr_ref_samp = A.shape[1]
     nr_features = X.shape[0]
 
     history = []
     if fixed.sum() == len(fixed):
         # All columns are fixed. no NMF performed, only NNLS
-        Y = run_nnls(A, X, beta)
+        Y = run_nnls(A, X, beta, normalize)
         history.append(calc_RMSE(A, Y, X))
         return A, Y, history
 
@@ -64,7 +64,7 @@ def run_deconvolution(A, X, fixed, beta, eta, n_iter):
 
     for it in range(n_iter):
         # argmin_Y ||A*Y-X||
-        Y = run_nnls(A, X, beta)
+        Y = run_nnls(A, X, beta, normalize)
 
         resid = X - np.matmul(A[:, fixed_inds], Y[fixed_inds, :])
 
