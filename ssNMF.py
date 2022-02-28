@@ -116,6 +116,9 @@ def main():
     args = parse_args()
     validate_args(args)
 
+    if args.seed:
+        np.random.seed(args.seed)
+
     # load samples table:
     sf = load_table(args.data, args.norm_data)
     features = sf.index.tolist()

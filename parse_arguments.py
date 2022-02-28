@@ -85,6 +85,8 @@ def parse_args():
     parser.add_argument('--prefix', '-p', default='./out',
                         help='prefix for output files (csv and png)')
     parser.add_argument('--verbose', '-v', action='store_true')
+    parser.add_argument('--seed', type=int,
+            help='seed for the random generator (numpy.random.seed)')
     parser.add_argument('--plot', action='store_true')
     # parser.add_argument('--threads', '-@', type=int, default=DEF_NR_THREADS,
     #                     help='Number of threads [cpu_count()]')
