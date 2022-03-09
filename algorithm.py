@@ -22,7 +22,7 @@ def run_nnls(A, X, beta, normalize=True):
 
     # append sqrt(beta) row to A:
     Ar = np.vstack([A, np.repeat(np.sqrt(beta), nr_ref_samp)])
-    # append zero row to A: # TODO: was this Tommy's intention?
+    # append zero row to A: 
     Xr = np.vstack([X, np.repeat(0, nr_samples)])
 
     # argmin_Y ||AY-X||
